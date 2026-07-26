@@ -1054,18 +1054,17 @@ const DAYS=[
  {dow:"Thu",num:3,kind:"city",title:"SOUTH DAY — WTC, East Village & show night",
   sub:"One ride down, the morning at the WTC, then home the long way through the East Village so Beetle House costs almost nothing — clean up, the show, then a real dinner. Book the Squadron's 10:00 AM slot — the earliest of the four on offer, and the only one that leaves the afternoon free. Total walking ≈ 4 mi.",
   stops:[
-   {pick:1,t:"9:00–10:00 AM",n:"BREAKFAST — near the hotel",d:"Bring your Stranger Things tickets and Squadron confirmation. The 9:00 start is what pushed the Squadron to its 12:30 slot - see that row.",la:40.7620,lo:-73.9891,k:"food"},
-   {t:"10:15–10:45 AM",n:"SUBWAY — 1 train: 50 St → WTC Cortlandt",d:"~22-min ride, one seat, drops you at the WTC campus.",la:40.7115,lo:-74.0121,k:"transit",c:3.00},
-   {t:"10:50–11:15 AM",n:"OPTIONAL — 9/11 Memorial pools",q:"National September 11 Memorial New York",d:"NOT FROM YOUR LIST, but it is 400 feet from the Squadron door, free and unticketed. Two reflecting pools in the tower footprints, names cut into the bronze. 25 minutes if you want it.",la:40.7115,lo:-74.0134,k:"event",c:0},
-   {t:"11:20 AM–12:10 PM",n:"OPTIONAL — One World Observatory or Staten Island Ferry",q:"One World Observatory New York",d:"Both on your list, both optional. The Observatory is 510 ft away - 102nd-floor views, timed ticket day-of. The FREE ferry needs more room than this block has now (15-min walk to Whitehall plus 25 min each way), so with a 12:30 Squadron the Observatory is the realistic one.",la:40.7130,lo:-74.0132,k:"event"},
-   {t:"12:15–2:30 PM",dur:135,n:"The Squadron: Top Gun 🎟",q:"The Squadron NYC 7 World Trade Center New York",paid:"$257.69 Groupon",d:"MOVED TO 12:30 because you are not starting before 9. The 10:00 slot needs you out the door by 9:05 and checked in at 9:45, which a 9:00 breakfast makes impossible. Of the four slots (10:00 / 12:30 / 3:00 / 5:30) 12:30 is the only one left that works - 3:00 ends at 5:00 and collides with Beetle House and the curtain, 5:30 is impossible. DURATION CONFIRMED 2 hours from the ticket page: suit up, practice orientation flight, debrief, then the dogfight. PREPAID $257.69 via Groupon, kept out of the budget since that money is already gone.",la:40.7133,lo:-74.0114,k:"ticket"},
-   {t:"2:35–2:55 PM",n:"SUBWAY — 1 train: WTC Cortlandt → Canal St",d:"~6-min ride into Chinatown, which sits directly between the WTC and the East Village. Lunch here costs no detour at all.",la:40.7185,lo:-74.0000,k:"transit",c:3.00},
-   {pick:1,t:"3:00–4:00 PM",n:"LUNCH — Chinatown / Lower East Side",d:"Deliberately placed on the northeast line from the Squadron to Beetle House, so lunch is on the way rather than a stop you double back for. Everything offered here is from your own list.",la:40.7160,lo:-73.9975,k:"food"},
-   {t:"4:05–4:30 PM",n:"WALK / SUBWAY — Chinatown → East Village",d:"About 20 minutes on foot up through the Lower East Side, or two stops on the F from East Broadway. You are walking the last stretch of a straight northeast line: WTC → Chinatown → East Village.",la:40.7304,lo:-73.9927,k:"transit",c:3.00},
-   {t:"4:30–4:40 PM",n:"St. Marks Place & around",q:"St Marks Place New York",d:"NOT FROM YOUR LIST - this was a filler breather block in the original plan, and it survives here only to cover the half hour before Beetle House unlocks at 4. East 8th St between 3rd Ave and Avenue A: record shops, arcades, cheap eats. Cut it and stay downtown longer instead; the bar still opens at 4 either way.",la:40.7288,lo:-73.9880,k:"event",c:0},
-   {t:"4:45–5:30 PM",n:"Beetle House — bar, no reservation",q:"Beetle House 308 E 6th St New York",d:"BAR ONLY, walk in as they open. A booked table means agreeing to a $65/person prix fixe charged if you cancel inside 24 hours; the bar has no minimum and their own note says just come to the bar if you are not doing the full meal. Themed cocktails among the Beetlejuice and Jack Skellington set dressing, 308 E 6th St. And no closing-time risk now that you arrive at 4 instead of 10:30.",la:40.7273,lo:-73.9882,k:"food"},
-   {t:"5:30–6:05 PM",n:"SUBWAY — R/W: 8 St-NYU to 49 St",d:"One seat, no transfers: ~10-min walk west to 8 St-NYU, ~18-min ride up Broadway, ~7-min walk to the Romer. Beats the 6-to-Grand-Central-then-42nd-St-Shuttle version, which takes the same time with two changes. (The S is a subway shuttle, not a bus - but you are not using it.)",la:40.7634,lo:-73.9857,k:"transit",c:3.00},
-   {flex:1,t:"6:05–6:35 PM",n:"Romer Hell's Kitchen — get ready for the show",q:"Romer Hell's Kitchen 851 8th Ave New York",d:"Adjustable — use the − / + control and everything after slides, except the 7:00 curtain.",la:40.7634,lo:-73.9857,k:"hotel"},
+   {pick:1,t:"9:00–9:15 AM",n:"SNACK — quick coffee near the hotel",d:"Deliberately short. The 10:00 Squadron needs you checked in at 9:45, so this is coffee and something in your hand, not a sit-down - the real meal is lunch in Chinatown after. The café in your own lobby and Dig across the street are the two zero-detour options.",la:40.7634,lo:-73.9857,k:"food"},
+   {t:"9:15–9:45 AM",n:"SUBWAY — 1 train: 50 St → WTC Cortlandt",d:"~22-min ride, one seat, drops you at the WTC campus. Leave the hotel at 9:15 - check-in is 9:45 and they mean it.",la:40.7115,lo:-74.0121,k:"transit",c:3.00},
+   {t:"9:45 AM–12:00 PM",dur:135,n:"The Squadron: Top Gun 🎟",paid:"$257.69 Groupon",q:"The Squadron NYC 7 World Trade Center New York",d:"BE THERE 9:45, NOT 10:00 - their site requires you 15 minutes early for check-in. 250 Greenwich St lobby, photo ID, A elevator to the 10th floor. This block covers check-in plus the 2-hour experience, which the ticket page confirms: suit up, a practice orientation flight, a debrief, then the dogfight. PREPAID $257.69 via Groupon, kept out of the budget since that money is already gone.",la:40.7133,lo:-74.0114,k:"ticket"},
+   {t:"12:05–12:30 PM",n:"OPTIONAL — 9/11 Memorial pools",q:"National September 11 Memorial New York",d:"NOT FROM YOUR LIST, but it is 400 feet from the Squadron door, free and unticketed. Two reflecting pools in the tower footprints, names cut into the bronze. 25 minutes if you want it.",la:40.7115,lo:-74.0134,k:"event",c:0},
+   {t:"12:35–1:50 PM",n:"OPTIONAL — One World Observatory or Staten Island Ferry",q:"One World Observatory New York",d:"Both on your list, both optional. The Observatory is 510 ft away - 102nd-floor views, timed ticket day-of. The FREE ferry is now genuinely possible again with the earlier Squadron: 15-min walk to Whitehall, 25 min each way. Drop this block entirely and lunch moves up to about 1:00, which is the more civilised option if the 9:00 snack was thin.",la:40.7130,lo:-74.0132,k:"event"},
+   {t:"1:55–2:15 PM",n:"SUBWAY — 1 train: WTC Cortlandt → Canal St",d:"~6-min ride into Chinatown, which sits directly between the WTC and the East Village. Lunch here costs no detour at all.",la:40.7185,lo:-74.0000,k:"transit",c:3.00},
+   {pick:1,t:"2:20–3:20 PM",n:"LUNCH — Chinatown / Lower East Side",d:"The proper meal of the day, on the northeast line from the Squadron to Beetle House so it costs no detour. Everything offered is from your own list. If you skipped the Observatory this lands nearer 1:00 instead.",la:40.7160,lo:-73.9975,k:"food"},
+   {t:"3:25–4:00 PM",n:"WALK — Chinatown → East Village",d:"About 30 minutes on foot up through the Lower East Side, past St Marks Place if you want the record shops and arcades. Or two stops on the F from East Broadway. Lands you at Beetle House as it opens.",la:40.7288,lo:-73.9880,k:"transit",c:0},
+   {t:"4:00–4:50 PM",n:"Beetle House — bar, no reservation",q:"Beetle House 308 E 6th St New York",d:"BAR ONLY, walk in as they open. A booked table means agreeing to a $65/person prix fixe charged if you cancel inside 24 hours; the bar has no minimum and their own note says just come to the bar if you are not doing the full meal. Themed cocktails among the Beetlejuice and Jack Skellington set dressing, 308 E 6th St. And no closing-time risk now that you arrive at 4 instead of 10:30.",la:40.7273,lo:-73.9882,k:"food"},
+   {t:"4:50–5:25 PM",n:"SUBWAY — R/W: 8 St-NYU to 49 St",d:"One seat, no transfers: ~10-min walk west to 8 St-NYU, ~18-min ride up Broadway, ~7-min walk to the Romer. Beats the 6-to-Grand-Central-then-42nd-St-Shuttle version, which takes the same time with two changes. (The S is a subway shuttle, not a bus - but you are not using it.)",la:40.7634,lo:-73.9857,k:"transit",c:3.00},
+   {flex:1,t:"5:30–6:30 PM",n:"Romer Hell's Kitchen — get ready for the show",q:"Romer Hell's Kitchen 851 8th Ave New York",d:"Adjustable — use the − / + control and everything after slides, except the 7:00 curtain.",la:40.7634,lo:-73.9857,k:"hotel"},
    {t:"6:35–6:45 PM",n:"WALK — Romer → Marquis Theatre",d:"10 min down 8th Ave to 210 W 46th. Seated by 6:45, 15 minutes before curtain.",la:40.7585,lo:-73.9862,k:"transit",c:0},
    {t:"7:00–9:45 PM",n:"Stranger Things: The First Shadow 🎟",q:"Marquis Theatre 210 W 46th St New York",d:"TICKETS BOUGHT. Seats by 6:50; 2h45m with intermission at the Marquis.",la:40.7585,lo:-73.9862,k:"ticket"},
    {t:"9:50–10:00 PM",n:"WALK — Marquis → Hell's Kitchen",d:"10 min back up 8th Ave, straight to dinner.",la:40.7634,lo:-73.9857,k:"transit",c:0},
@@ -1501,9 +1500,10 @@ function slotMeal(s){
   if(w==='BREAKFAST'||w==='BRUNCH')return 'breakfast';
   if(w==='DRINKS'||w==='LAST NIGHT')return 'drinks';
   if(w==='LUNCH')return 'lunch';
+  if(w==='SNACK')return 'snack';
   return 'dinner';
 }
-const MEAL_LABEL={breakfast:'Breakfast',lunch:'Lunch',dinner:'Dinner',drinks:'Drinks'};
+const MEAL_LABEL={breakfast:'Breakfast',lunch:'Lunch',dinner:'Dinner',drinks:'Drinks',snack:'Something quick'};
 function slotArea(s){
   return s.n.replace(/^(DINNER|LUNCH|BREAKFAST|BRUNCH|DRINKS|SNACK)\s*[—-]\s*/i,'')
            .replace(/\s*\(optional\)/i,'');
@@ -1857,7 +1857,10 @@ function mealOk(want,have){
   if(want===have)return true;
   /* one-way: a dinner restaurant is fine at lunch, but a fast-casual
      lunch counter is not an answer to "where should we have dinner" */
-  return want==='lunch'&&have==='dinner';
+  if(want==='lunch'&&have==='dinner')return true;
+  /* grabbing something quick: anywhere fast, breakfast counters or lunch counters */
+  if(want==='snack')return have==='breakfast'||have==='lunch';
+  return false;
 }
 function suggestFor(d,g,kindFirst,meal){
   /* stop names carry prefixes ("DINNER — Beetle House ★ …"), so match loosely
