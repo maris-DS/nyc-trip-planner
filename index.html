@@ -1667,6 +1667,7 @@ function visible(s){
 function renderDays(){
   const root=document.getElementById('days');
   const notes=getNotes();
+  const PINS=computePins();
   let html='',anyShown=0;
 
   DAYS.forEach((day,d)=>{
@@ -1685,11 +1686,10 @@ function renderDays(){
       +'<button class="dayreset" onclick="resetDay('+d+')" title="Reset this day">Reset</button>'
       +'<div class="daybody" id="daybody-'+d+'">';
 
-    const pinNo=pinNumbers(sch.items);
     shown.forEach(x=>{
       const gap=sch.gaps.find(g=>g.at===x.i);
       if(gap&&!state.query&&state.filter==='all')html+=gapHTML(d,gap);
-      html+=rowHTML(d,x.i,x.it,sch.items,notes,pinNo);
+      html+=rowHTML(d,x.i,x.it,sch.items,notes,PINS);
     });
     if(!shown.length)html+='<div class="empty">Nothing on this day matches the filter.</div>';
     html+='</div></section>';
@@ -1706,15 +1706,33 @@ function renderDays(){
   if(state.active!=null)highlight(state.active,false);
 }
 
-function pinNumbers(items){
-  const seen={},out={};let n=0;
-  items.forEach((it,i)=>{
-    if(it.k==='air'||it.k==='transit'||!visible(it))return;
-    /* an undecided slot keeps its own number - it is a place in the day even
-       though it is currently sitting on the hotel's placeholder coordinates */
-    const k=it.open?('open'+i):(it.la.toFixed(4)+','+it.lo.toFixed(4));
+/* The card badge and the map pin must never disagree, so both read from this.
+   It is derived from mapStops(), which already knows the current scope (one
+   day vs whole trip) and the active filters. A card only gets a number when
+   its stop is actually on the map right now. */
+/* repaint just the badges - cheaper and less jarring than a full re-render
+   while the user is scrolling */
+function refreshPins(){
+  const PINS=computePins();
+  document.querySelectorAll('.item[data-key]').forEach(el=>{
+    const badge=el.querySelector('.pinno'),thumb=el.querySelector('.rthumb');
+    const n=PINS[el.dataset.key];
+    if(!thumb)return;
+    if(n==null){if(badge)badge.remove();return;}
+    if(badge)badge.textContent=n;
+    else{
+      const b=document.createElement('span');
+      b.className='pinno'+(el.querySelector('.row.open-slot')?' prov':'');
+      b.textContent=n;thumb.appendChild(b);
+    }
+  });
+}
+function computePins(){
+  const out={},seen={};let n=0;
+  mapStops().forEach(x=>{
+    const k=x.s.open?('open'+x.key):(x.s.la.toFixed(4)+','+x.s.lo.toFixed(4));
     if(seen[k]===undefined)seen[k]=++n;
-    out[i]=seen[k];
+    out[x.key]=seen[k];
   });
   return out;
 }
@@ -1760,7 +1778,7 @@ function rowHTML(d,i,it,items,notes,pins){
     +'data-key="'+key+'" tabindex="0" role="button" aria-expanded="false" '
     +'aria-label="'+esc(it.n)+' at '+esc(t.hh+' '+t.ap)+'">'
     +(leg?'':'<span class="rthumb">'+ico(meta.icon)
-        +(pins&&pins[i]?'<span class="pinno'+(it.open?' prov':'')+'">'+pins[i]+'</span>':'')+'</span>')
+        +(pins&&pins[d+'.'+i]?'<span class="pinno'+(it.open?' prov':'')+'">'+pins[d+'.'+i]+'</span>':'')+'</span>')
     +'<span class="rbody">'
     +(st?'<span class="rstatus" style="color:'+st.c+'">'+st.t+'</span>':'')
     +'<span class="rtitle">'+(it.open
@@ -2048,7 +2066,7 @@ function observeDays(){
     entries.forEach(e=>{if(e.isIntersecting&&(!best||e.intersectionRatio>best.intersectionRatio))best=e;});
     if(best){
       const d=+best.target.dataset.day;
-      if(d!==state.mapDay){state.mapDay=d;drawMap();}
+      if(d!==state.mapDay){state.mapDay=d;MAP.fitted=-1;drawMap();refreshPins();}
     }
   },{rootMargin:'-15% 0px -55% 0px',threshold:[0,.25,.6]});
   document.querySelectorAll('.dayblock').forEach(el=>__io.observe(el));
@@ -2245,8 +2263,10 @@ const tileNodes=new Map();
 
 function zClamp(z){return Math.max(MINZ,Math.min(MAXZ,z));}
 function mapDay(){
-  const d=MAP.mapDayCache;
-  return (typeof d==='number'&&DAYS[d])?d:0;
+  /* state.mapDay is the truth; MAP.mapDayCache only catches up inside drawMap(),
+     which is too late for renderDays() to number the cards correctly */
+  const d=(typeof state!=='undefined'&&typeof state.mapDay==='number')?state.mapDay:MAP.mapDayCache;
+  return DAYS[d]?d:0;
 }
 function mapStops(){
   const d=mapDay();
@@ -2380,11 +2400,12 @@ function paintMap(){
   }
 
   /* markers */
-  const seen={};let pinNo=0;
-  items.forEach((x,xi)=>{
+  const PINS=computePins();
+  const seen={};
+  items.forEach(x=>{
     const k=x.s.open?('open'+x.key):(x.s.la.toFixed(4)+','+x.s.lo.toFixed(4));
     if(seen[k]){seen[k].keys.push(x.key);return;}
-    seen[k]={p:x.s,num:++pinNo,keys:[x.key],open:!!x.s.open};
+    seen[k]={p:x.s,num:PINS[x.key],keys:[x.key],open:!!x.s.open};
   });
   const claimed=[];
   Object.values(seen).forEach(e=>{
@@ -2632,7 +2653,6 @@ function initMapGestures(){
 /* keeps the old call-sites working: the day changed, so refit unless the
    user has taken manual control of this view */
 function drawMap(){
-  MAP.mapDayCache=state.mapDay||0;
   const box=document.getElementById('mapbox');if(!box)return;
   const W=box.clientWidth;
   if(!W){if(!drawMap.__r){drawMap.__r=1;requestAnimationFrame(()=>{drawMap.__r=0;drawMap();});}return;}
@@ -2657,7 +2677,7 @@ function setMapMode(m){
   MAP.mode=m;MAP.sel=null;hidePop();
   document.getElementById('mm-day').setAttribute('aria-pressed',String(m==='day'));
   document.getElementById('mm-trip').setAttribute('aria-pressed',String(m==='trip'));
-  MAP.fitted=-1;drawMap();
+  MAP.fitted=-1;drawMap();renderDays();
 }
 function tileErr(){
   __tileErr++;
