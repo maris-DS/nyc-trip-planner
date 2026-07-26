@@ -1595,12 +1595,15 @@ function schedule(d){
       it.late=(cursor!=null&&st<cursor);                  /* previous block overruns this anchor */
       it.overrunBy=it.late?cursor-st:0;
     }else{
-      /* a planned time is a "not before" floor: things slide later when the day
-         runs long, but dinner does not drift to 3 PM just because you got in early */
+      /* Meals keep a "not before" floor so dinner does not drift to 3 PM just
+         because you checked in early. EVERYTHING ELSE follows the cursor, or
+         shortening a block would silently change nothing downstream and the
+         duration control would feel broken. */
       const planned=startMin(s.t);
       if(cursor==null)st=(planned!=null?planned:9*60);
       else if(planned==null)st=cursor;
-      else st=Math.max(cursor,planned);
+      else if(it.k==='food')st=Math.max(cursor,planned);
+      else st=cursor;
     }
     it.start=st;it.end=st+it.mins;
     cursor=it.end;
