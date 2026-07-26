@@ -2400,19 +2400,34 @@ function paintMap(){
   }
 
   /* markers */
+  /* Cards get their own numbers, but the MAP must group strictly by coordinate -
+     three things at the same hotel are one pin, labelled with all of them.
+     Keying by anything else stacks markers exactly on top of each other. */
   const PINS=computePins();
   const seen={};
   items.forEach(x=>{
-    const k=x.s.open?('open'+x.key):(x.s.la.toFixed(4)+','+x.s.lo.toFixed(4));
-    if(seen[k]){seen[k].keys.push(x.key);return;}
-    seen[k]={p:x.s,num:PINS[x.key],keys:[x.key],open:!!x.s.open};
+    const k=x.s.la.toFixed(4)+','+x.s.lo.toFixed(4);
+    if(seen[k]){
+      seen[k].keys.push(x.key);
+      if(seen[k].nums.indexOf(PINS[x.key])===-1)seen[k].nums.push(PINS[x.key]);
+      if(!x.s.open)seen[k].open=false;
+      return;
+    }
+    seen[k]={p:x.s,nums:[PINS[x.key]],keys:[x.key],open:!!x.s.open};
+  });
+  Object.values(seen).forEach(e=>{
+    e.nums.sort((a,b)=>a-b);
+    /* "1+2" reads as pins 1 and 2, so never use arithmetic here - slash-join
+       up to three, then ellipsis. */
+    e.num=e.nums.length<=3?e.nums.join('/'):(e.nums.slice(0,3).join('/')+'…');
   });
   const claimed=[];
   Object.values(seen).forEach(e=>{
     const p=e.p,x=X(p.lo),y=Y(p.la);
     if(x<-60||x>W+60||y<-40||y>H+40)return;
     const label=String(e.num);
-    const r=e.keys.length>1?13:11;
+    const lab=String(e.num);
+    const r=lab.length>5?16:lab.length>3?14:lab.length>1?12:11;
     const on=MAP.sel&&e.keys.indexOf(MAP.sel)>-1;
     const left=x>W*0.58;
     const lx=left?x-18:x+18,anchor=left?'end':'start';
@@ -2423,7 +2438,7 @@ function paintMap(){
       +'" fill="'+(e.open?ring:typeColor(p.k))+'" stroke="'+(e.open?typeColor(p.k):(on?txt:ring))
       +'" stroke-width="'+(on?4:2.5)+'"'+(e.open?' stroke-dasharray="4 3"':'')+'/>'
       +(label?'<text x="'+x.toFixed(1)+'" y="'+(y+4).toFixed(1)+'" text-anchor="middle" font-size="'
-        +(label.length>2?9:12)+'" font-weight="700" fill="'+(e.open?typeColor(p.k):ring)+'" font-family="Archivo,sans-serif" '
+        +(label.length>5?7.5:label.length>3?9:label.length>1?10:12)+'" font-weight="700" fill="'+(e.open?typeColor(p.k):ring)+'" font-family="Archivo,sans-serif" '
         +'pointer-events="none">'+label+'</text>':'')
       +(short?'<text x="'+lx.toFixed(1)+'" y="'+(y+4).toFixed(1)+'" text-anchor="'+anchor+'" font-size="11.5" fill="'+txt
         +'" font-family="Public Sans,sans-serif" paint-order="stroke" stroke="'+ring+'" stroke-width="3.5" '
