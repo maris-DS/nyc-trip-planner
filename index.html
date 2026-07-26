@@ -79,7 +79,10 @@ button,input,select,textarea{font:inherit;color:inherit}
 .nowrap{white-space:nowrap}
 svg{flex:none}
 /* baseline for every generated icon — specific rules still win on specificity */
-.ic{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;flex:none;vertical-align:-.12em}
+.ic{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:-.12em}
+/* Lucide draws these as small filled dots, not outlines */
+.ic use[href="#i-dots"],.ic use[href="#i-grip"]{fill:currentColor}
 
 /* ---------- Cover ---------- */
 .cover{
@@ -340,7 +343,7 @@ svg{flex:none}
 }
 .grip:hover{color:var(--ink);background:var(--s3)}
 .grip:active{cursor:grabbing}
-.grip svg{width:16px;height:16px;stroke:currentColor;fill:currentColor;stroke-width:0}
+.grip svg{width:16px;height:16px}
 .item.dragging{opacity:.6}
 .item.dragging .row{border-color:var(--accent);border-style:solid}
 body.is-dragging{user-select:none}
@@ -787,41 +790,42 @@ footer b{color:var(--ink-2)}
 </style>
 </head>
 <body>
+<!-- Icons: Lucide v1.27.0 (ISC licence) — https://lucide.dev -->
 <svg class="vh" aria-hidden="true"><defs>
-<g id="i-plane"><path d="M4 13l16-6-3 8 3 8-16-6-2 2v-8z" stroke-linejoin="round"/></g>
-<g id="i-bed"><path d="M3 8v11M3 12h12a4 4 0 0 1 4 4v3M3 19h18"/><circle cx="7.5" cy="9.5" r="2"/></g>
-<g id="i-car"><path d="M4 16v-3l2-5h12l2 5v3M4 16h16M5 16v2M19 16v2"/><circle cx="8" cy="16" r=".8"/><circle cx="16" cy="16" r=".8"/></g>
-<g id="i-ticket"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4z"/><path d="M14 6v12" stroke-dasharray="2 2"/></g>
-<g id="i-fork"><path d="M6 3v7a2 2 0 0 0 4 0V3M8 10v11M18 3c-1.5 1-2 3-2 5s.5 3 2 3v10"/></g>
-<g id="i-pin"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></g>
-<g id="i-cal"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></g>
-<g id="i-users"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0M16 6a3 3 0 0 1 0 6M18 20a5 5 0 0 0-3-4.6"/></g>
-<g id="i-money"><path d="M12 3v18M16.5 7.5c0-1.9-2-3-4.5-3S7.5 5.6 7.5 7.5 9.5 10.5 12 10.5s4.5 1.1 4.5 3-2 3-4.5 3-4.5-1.1-4.5-3"/></g>
-<g id="i-check"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></g>
-<g id="i-map"><path d="M9 20l-6 2V6l6-2 6 2 6-2v16l-6 2-6-2z" stroke-linejoin="round"/><path d="M9 4v16M15 6v16"/></g>
-<g id="i-route"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 6H14a4 4 0 0 1 0 8h-4a4 4 0 0 0 0 8h5.5" stroke-linecap="round"/></g>
-<g id="i-bookmark"><path d="M6 3h12v18l-6-4.5L6 21z" stroke-linejoin="round"/></g>
-<g id="i-list"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01" stroke-linecap="round"/></g>
-<g id="i-search"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5" stroke-linecap="round"/></g>
-<g id="i-minus"><path d="M5 12h14" stroke-linecap="round"/></g>
-<g id="i-plus"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></g>
-<g id="i-dots"><circle cx="12" cy="5" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="12" cy="19" r="1.2"/></g>
-<g id="i-share"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4"/></g>
-<g id="i-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.4 1.4M17.6 17.6L19 19M19 5l-1.4 1.4M6.4 17.6L5 19" stroke-linecap="round"/></g>
-<g id="i-x"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></g>
-<g id="i-star"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z" stroke-linejoin="round"/></g>
-<g id="i-clock"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2" stroke-linecap="round"/></g>
-<g id="i-grip"><circle cx="9" cy="6" r="1.3"/><circle cx="15" cy="6" r="1.3"/><circle cx="9" cy="12" r="1.3"/><circle cx="15" cy="12" r="1.3"/><circle cx="9" cy="18" r="1.3"/><circle cx="15" cy="18" r="1.3"/></g>
-<g id="i-pinned"><path d="M9 4h6l-1 6 3 3v2H7v-2l3-3z"/><path d="M12 15v5" stroke-linecap="round"/></g>
-<g id="i-nav"><path d="M3 11l18-8-8 18-2.5-7.5z" stroke-linejoin="round"/></g>
-<g id="i-lock"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8.5 10.5V7a3.5 3.5 0 0 1 7 0v3.5"/></g>
-<g id="i-chev"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<g id="i-crosshair"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.2"/><path d="M12 1.5v3.5M12 19v3.5M1.5 12h3.5M19 12h3.5" stroke-linecap="round"/></g>
-<g id="i-fit"><path d="M4 9V5.5A1.5 1.5 0 0 1 5.5 4H9M15 4h3.5A1.5 1.5 0 0 1 20 5.5V9M20 15v3.5a1.5 1.5 0 0 1-1.5 1.5H15M9 20H5.5A1.5 1.5 0 0 1 4 18.5V15" stroke-linecap="round"/></g>
-<g id="i-walk"><circle cx="13" cy="4" r="1.7"/><path d="M11 21l2-6-3-3 1-5 3 3 3 1M10 12l-2 4" stroke-linecap="round"/></g>
-<g id="i-train"><rect x="5" y="3" width="14" height="13" rx="2"/><path d="M5 10h14M7 20l2-4M17 20l-2-4" stroke-linecap="round"/></g>
-<g id="i-subway"><rect x="6" y="3" width="12" height="12" rx="2"/><path d="M6 15l-2 5M18 15l2 5M9 9h6" stroke-linecap="round"/><circle cx="9" cy="12" r=".7"/><circle cx="15" cy="12" r=".7"/></g>
-<g id="i-bus"><rect x="4" y="4" width="16" height="12" rx="2"/><path d="M4 10h16M7 20v-2M17 20v-2"/><circle cx="8" cy="13" r=".8"/><circle cx="16" cy="13" r=".8"/></g>
+<g id="i-plane"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /></g>
+<g id="i-bed"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8" /> <path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" /> <path d="M12 4v6" /> <path d="M2 18h20" /></g>
+<g id="i-car"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /> <path d="M7 14h.01" /> <path d="M17 14h.01" /> <rect width="18" height="8" x="3" y="10" rx="2" /> <path d="M5 18v2" /> <path d="M19 18v2" /></g>
+<g id="i-ticket"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" /> <path d="M13 5v2" /> <path d="M13 17v2" /> <path d="M13 11v2" /></g>
+<g id="i-fork"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" /> <path d="M7 2v20" /> <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" /></g>
+<g id="i-pin"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /></g>
+<g id="i-cal"><path d="M8 2v4" /> <path d="M16 2v4" /> <rect width="18" height="18" x="3" y="4" rx="2" /> <path d="M3 10h18" /></g>
+<g id="i-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /></g>
+<g id="i-money"><rect width="20" height="12" x="2" y="6" rx="2" /> <circle cx="12" cy="12" r="2" /> <path d="M6 12h.01M18 12h.01" /></g>
+<g id="i-check"><path d="M20 6 9 17l-5-5" /></g>
+<g id="i-map"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z" /> <path d="M15 5.764v15" /> <path d="M9 3.236v15" /></g>
+<g id="i-route"><circle cx="6" cy="19" r="3" /> <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" /> <circle cx="18" cy="5" r="3" /></g>
+<g id="i-bookmark"><path d="M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z" /></g>
+<g id="i-list"><path d="M3 5h.01" /> <path d="M3 12h.01" /> <path d="M3 19h.01" /> <path d="M8 5h13" /> <path d="M8 12h13" /> <path d="M8 19h13" /></g>
+<g id="i-search"><path d="m21 21-4.34-4.34" /> <circle cx="11" cy="11" r="8" /></g>
+<g id="i-minus"><path d="M5 12h14" /></g>
+<g id="i-plus"><path d="M5 12h14" /> <path d="M12 5v14" /></g>
+<g id="i-dots"><circle cx="12" cy="12" r="1" /> <circle cx="12" cy="5" r="1" /> <circle cx="12" cy="19" r="1" /></g>
+<g id="i-share"><circle cx="18" cy="5" r="3" /> <circle cx="6" cy="12" r="3" /> <circle cx="18" cy="19" r="3" /> <line x1="8.59" x2="15.42" y1="13.51" y2="17.49" /> <line x1="15.41" x2="8.59" y1="6.51" y2="10.49" /></g>
+<g id="i-sun"><circle cx="12" cy="12" r="4" /> <path d="M12 3v1" /> <path d="M12 20v1" /> <path d="M3 12h1" /> <path d="M20 12h1" /> <path d="m18.364 5.636-.707.707" /> <path d="m6.343 17.657-.707.707" /> <path d="m5.636 5.636.707.707" /> <path d="m17.657 17.657.707.707" /></g>
+<g id="i-x"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></g>
+<g id="i-walk"><circle cx="12" cy="5" r="1" /> <path d="m9 20 3-6 3 6" /> <path d="m6 8 6 2 6-2" /> <path d="M12 10v4" /></g>
+<g id="i-train"><rect width="16" height="16" x="4" y="3" rx="2" /> <path d="M4 11h16" /> <path d="M12 3v8" /> <path d="m8 19-2 3" /> <path d="m18 22-2-3" /> <path d="M8 15h.01" /> <path d="M16 15h.01" /></g>
+<g id="i-subway"><rect width="16" height="16" x="4" y="3" rx="2" /> <path d="M4 11h16" /> <path d="M12 3v8" /> <path d="m8 19-2 3" /> <path d="m18 22-2-3" /> <path d="M8 15h.01" /> <path d="M16 15h.01" /></g>
+<g id="i-bus"><path d="M8 6v6" /> <path d="M15 6v6" /> <path d="M2 12h19.6" /> <path d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3" /> <circle cx="7" cy="18" r="2" /> <path d="M9 18h5" /> <circle cx="16" cy="18" r="2" /></g>
+<g id="i-crosshair"><circle cx="12" cy="12" r="10" /> <line x1="22" x2="18" y1="12" y2="12" /> <line x1="6" x2="2" y1="12" y2="12" /> <line x1="12" x2="12" y1="6" y2="2" /> <line x1="12" x2="12" y1="22" y2="18" /></g>
+<g id="i-fit"><path d="M8 3H5a2 2 0 0 0-2 2v3" /> <path d="M21 8V5a2 2 0 0 0-2-2h-3" /> <path d="M3 16v3a2 2 0 0 0 2 2h3" /> <path d="M16 21h3a2 2 0 0 0 2-2v-3" /></g>
+<g id="i-nav"><polygon points="3 11 22 2 13 21 11 13 3 11" /></g>
+<g id="i-lock"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /> <path d="M7 11V7a5 5 0 0 1 10 0v4" /></g>
+<g id="i-chev"><path d="m6 9 6 6 6-6" /></g>
+<g id="i-grip"><circle cx="9" cy="12" r="1" /> <circle cx="9" cy="5" r="1" /> <circle cx="9" cy="19" r="1" /> <circle cx="15" cy="12" r="1" /> <circle cx="15" cy="5" r="1" /> <circle cx="15" cy="19" r="1" /></g>
+<g id="i-pinned"><path d="M12 17v5" /> <path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z" /></g>
+<g id="i-clock"><circle cx="12" cy="12" r="10" /> <path d="M12 6v6l4 2" /></g>
+<g id="i-star"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></g>
 </defs></svg>
 
 <div class="wrap">
