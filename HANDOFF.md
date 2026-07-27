@@ -84,17 +84,43 @@ All in `index.html`. Two data structures near the top of `<script>`:
 - **`suggestFor(d, point, kindFirst, meal)`** — option candidates from `POOL`.
 - **`renderDays()` / `paintMap()`** — the two renderers.
 
-### Storage keys (all `localStorage`, all `-v2`)
+### Storage keys (all `localStorage`)
 
-`nyc-camp-picks-v1` (saved-places checkboxes), `nyc-camp-costs-v2`,
-`nyc-camp-check-v2`, `nyc-camp-notes-v2`, `nyc-camp-extras-v2`,
-`nyc-camp-durs-v2`, `nyc-camp-pins-v2`, `nyc-camp-order-v2`,
-`nyc-camp-routes-v2`, `nyc-camp-slotpicks-v2`, `nyc-camp-ui-v2`.
+Suffixes are **not** uniform — check the actual string before assuming.
 
-**If you restructure a day's `stops` array, bump the `-vN` suffix on the
-index-keyed stores** (`durs`, `pins`, `order`, `routes`, `slotpicks`) — they key
-off position and will silently attach to the wrong rows otherwise. This bit us
-once: St. Marks inherited a 60-minute duration meant for a different row.
+| Store | Key | Keyed by |
+|---|---|---|
+| Saved-places checkboxes | `nyc-camp-picks-v1` | place slug |
+| Checklist ticks | `nyc-camp-check-v1` | check `id` |
+| Custom checks | `nyc-camp-check-custom-v1` | — |
+| Parked extras | `nyc-camp-extras-v1` | day index → item objects |
+| UI state | `nyc-camp-ui-v2` | — |
+| Map on/off | `nyc-camp-nomap-v1` | — |
+| **Costs** | `nyc-camp-costs-v1` | **`day:stopIndex`** |
+| **Notes** | `nyc-camp-notes-v1` | **`day:stopIndex`** |
+| **Durations** | `nyc-camp-durs-v3` | **`dur:day:bi`** |
+| **Pins** | `nyc-camp-pins-v3` | **`day/b<bi>`** |
+| **Order** | `nyc-camp-order-v3` | **day → `[itemId]`** |
+| **Routes** | `nyc-camp-routes-v3` | **`day:blockIndex`** |
+| **Slot picks** | `nyc-camp-slotpicks-v3` | **`day:blockIndex`** |
+
+**Seven stores are position-keyed, not seven minus two.** The bolded rows all key
+off a stop's index in `DAYS[d].stops`, so restructuring a day silently reattaches
+old values to different rows. This bit us once: St. Marks inherited a 60-minute
+duration meant for a different row.
+
+Two ways to handle it, and the right one depends on what the store holds:
+
+- **`durs` / `pins` / `order` / `routes` / `slotpicks`** — bump the `-vN` suffix.
+  These hold tweaks that are cheap to redo, and a bump is one edit. It resets
+  every day, not just the one you changed; that's the accepted trade. Bumped to
+  `-v3` on 2026-07-27 for the Wednesday reshape. Old `-v1`/`-v2` entries are left
+  orphaned in `localStorage` — harmless, never read.
+- **`costs` / `notes`** — do **not** bump. These hold typed input worth keeping,
+  and a global bump would wipe every day to fix one. Add a flagged one-time
+  migration that deletes only the affected `day:index` keys instead. See the
+  `nyc-camp-mig-wed-westside` IIFE near the top of the script for the pattern —
+  copy it, change the flag name and the index range.
 
 ## 4. Features, and why they work the way they do
 
@@ -176,7 +202,35 @@ $257.69, prepaid, 2 hours confirmed).
   on 24h cancellation. Thursday is the only day it's open during the trip.
 - Thursday's downtown afternoon (9/11 Memorial, One World Observatory / Staten
   Island Ferry) is marked **OPTIONAL** — neither was picked by them.
+- **Little Island timed passes** — they have used free timed entry for
+  late-afternoon arrivals in peak season. The 4:20 PM Wednesday slot is
+  deliberately on the safe side of it, but it is **unverified** for Sept 2026.
 - All meal slots are unpicked.
+
+### Wednesday was reshaped on 2026-07-27 — Empire State is out
+
+Scott said he didn't need to do the Empire State Building, so it was **cut from
+Wednesday** and the freed block went to the **west-side combo that had been cut
+for geography** — a trade Maris chose from a list of five on-list options.
+
+Wednesday afternoon is now: one R/W ride to 23rd St → Harry Potter (moved up from
+3:35 to open the afternoon) → walk 23rd St west → High Line south → Little Island
+→ Chelsea Market → **walk into the Village**, arriving on foot for the 6:30 dinner
+and the 8:45 Cellar.
+
+Three consequences that were accepted deliberately — don't "fix" them:
+
+1. **No hotel stop between 9:45 AM and after midnight.** The old 5:00 PM clean-up
+   block is gone; the day now ends downtown-to-Village on foot instead of doing a
+   Midtown round trip. Maris was told this before choosing.
+2. **Walking went up, ~5 mi → ~6.5 mi**, and almost all of the increase is after
+   1:45 PM. This is the real cost of the option.
+3. **A ~40-minute gap sits between the 5:50 PM Village arrival and 6:30 dinner.**
+   That's the `food` "not before" floor holding dinner, working as designed. It's
+   genuine slack, not a scheduling bug.
+
+ESB stays in `POOL` (not `dead`), re-addable via **Add to day**. Its checklist
+item was deleted and replaced with the Little Island timed-pass check.
 
 **Known gap:** there is **no undo**. Per-day `Reset` clears that day's order,
 pins and durations — all or nothing. Worth building if it bites.
