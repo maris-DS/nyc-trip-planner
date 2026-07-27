@@ -202,10 +202,20 @@ $257.69, prepaid, 2 hours confirmed).
   on 24h cancellation. Thursday is the only day it's open during the trip.
 - Thursday's downtown afternoon (9/11 Memorial, One World Observatory / Staten
   Island Ferry) is marked **OPTIONAL** — neither was picked by them.
-- **Little Island timed passes** — they have used free timed entry for
-  late-afternoon arrivals in peak season. The 4:20 PM Wednesday slot is
-  deliberately on the safe side of it, but it is **unverified** for Sept 2026.
 - All meal slots are unpicked.
+
+**Closed on 2026-07-27 — don't reopen these:**
+
+- **Little Island needs no timed pass.** Their Rules & FAQ lists no reservation
+  system, and Sept 2 sits in the `May 25 – Sept 7: 6 AM – 12 AM` window. The
+  "reservations required noon–10 PM" rule still floating around online is from
+  2021 and no longer applies. Walk in; the park is open till midnight that night.
+- **Allen Ginsberg at 100 (Little Island, Sept 2–6, 8:30 PM) does not fit.**
+  Maris found it and asked. It's in `POOL` under Nightlife with a DIDN'T FIT
+  badge. The blocker is not tickets, it's the clock: 8:30 PM collides with the
+  8:45 Comedy Cellar on Wed and Stranger Things on Thu, and Sept 4–6 they're at
+  camp. Sept 2–3 were also listed sold out. **Only reachable by dropping the
+  Cellar** — her call, not a scheduling problem to solve.
 
 ### Wednesday was reshaped on 2026-07-27 — Empire State is out
 
